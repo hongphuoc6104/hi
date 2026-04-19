@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trac nghiem Lich su Dang</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero panel">
+        <div>
+          <p class="eyebrow">GitHub Pages Ready</p>
+          <h1>Trac nghiem Lich su Dang</h1>
+          <p class="hero-copy">
+            Ngan hang du lieu duoc trich tu file PDF goc, giu dap an dung ngay ca khi xao tron thu tu cau hoi va dap an.
+          </p>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <strong id="metaQuestionCount">0</strong>
+            <span>cau hoi</span>
+          </div>
+          <div>
+            <strong id="metaSetCount">0</strong>
+            <span>ma de</span>
+          </div>
+          <div>
+            <strong>2</strong>
+            <span>lan / cau</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="main-layout">
+        <section class="panel setup-panel" id="setupView">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Khoi tao bai lam</p>
+              <h2>Chon ma de</h2>
+            </div>
+            <span class="pill" id="setInfoPill">0 cau</span>
+          </div>
+
+          <label class="field">
+            <span>Ma de</span>
+            <select id="setSelect"></select>
+          </label>
+
+          <div class="check-grid">
+            <label class="check-item">
+              <input type="checkbox" id="shuffleQuestions" checked />
+              <span>Xao tron thu tu cau hoi</span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" id="shuffleOptions" checked />
+              <span>Xao tron thu tu dap an</span>
+            </label>
+          </div>
+
+          <div class="info-grid">
+            <div class="info-card">
+              <span>Phan bo bo de</span>
+              <strong>24 de x 30 cau, 1 de x 20 cau</strong>
+            </div>
+            <div class="info-card">
+              <span>Du lieu</span>
+              <strong>370 cau, moi cau xuat hien dung 2 lan</strong>
+            </div>
+          </div>
+
+          <p class="helper" id="savedSessionNote">
+            Chua co phien dang luu.
+          </p>
+
+          <div class="action-row">
+            <button class="btn primary" id="startBtn">Bat dau lam bai</button>
+            <button class="btn secondary hidden" id="resumeBtn">Tiep tuc phien da luu</button>
+            <button class="btn ghost hidden" id="clearSavedBtn">Xoa phien da luu</button>
+          </div>
+        </section>
+
+        <section class="quiz-layout hidden" id="quizView">
+          <aside class="panel sidebar">
+            <div class="panel-heading compact">
+              <div>
+                <p class="eyebrow">Trang thai bai lam</p>
+                <h2 id="sidebarSetTitle">DE-01</h2>
+              </div>
+              <span class="pill" id="timerText">00:00</span>
+            </div>
+
+            <div class="summary-grid">
+              <div class="summary-card">
+                <span>Da chon</span>
+                <strong id="answeredCount">0</strong>
+              </div>
+              <div class="summary-card">
+                <span>Chua chon</span>
+                <strong id="unansweredCount">0</strong>
+              </div>
+              <div class="summary-card">
+                <span>Danh dau</span>
+                <strong id="flaggedCount">0</strong>
+              </div>
+            </div>
+
+            <div class="nav-label-row">
+              <span>Dieu huong nhanh</span>
+              <span id="shuffleStateLabel">Xao tron dang bat</span>
+            </div>
+            <div class="question-nav" id="questionNav"></div>
+
+            <div class="action-stack">
+              <button class="btn primary" id="submitBtn">Nop bai</button>
+              <button class="btn secondary" id="backBtn">Quay lai chon de</button>
+              <button class="btn ghost" id="resetBtn">Lam lai tu dau</button>
+            </div>
+          </aside>
+
+          <section class="panel question-panel">
+            <div class="question-toolbar">
+              <div>
+                <p class="eyebrow" id="questionMeta">Bai 1</p>
+                <h2 id="questionTitle">Cau 1</h2>
+              </div>
+              <button class="btn ghost small" id="flagBtn">Danh dau cau nay</button>
+            </div>
+
+            <div class="result-banner hidden" id="resultBanner"></div>
+
+            <article class="question-card" id="questionCard"></article>
+
+            <div class="pager-row">
+              <button class="btn secondary" id="prevBtn">Cau truoc</button>
+              <button class="btn primary" id="nextBtn">Cau tiep</button>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="./data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
