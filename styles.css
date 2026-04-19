@@ -39,8 +39,10 @@ input {
 }
 
 .app-shell {
-  width: min(1280px, calc(100vw - 32px));
-  margin: 24px auto 40px;
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 24px 20px 40px;
 }
 
 .panel {
@@ -361,11 +363,16 @@ input {
   background: #fff;
   padding: 16px;
   cursor: pointer;
+  transition: all 0.25s ease;
 }
 
 .option:hover {
   border-color: #b9c8ff;
   box-shadow: 0 10px 24px rgba(20, 33, 61, 0.06);
+}
+
+.options.has-answered .option {
+  pointer-events: none;
 }
 
 .option.selected {
@@ -407,15 +414,31 @@ input {
 
 .option-text {
   line-height: 1.7;
+  display: block;
+}
+
+.option > span {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 48px;
 }
 
 .option-badge {
   display: inline-flex;
-  margin-top: 10px;
+  margin-top: 8px;
   border-radius: 999px;
   font-size: 0.76rem;
   font-weight: 700;
   padding: 6px 10px;
+  animation: badgePop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transform-origin: left center;
+}
+
+@keyframes badgePop {
+  0% { opacity: 0; transform: scale(0.9) translateY(4px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 .option-badge.correct {
@@ -447,8 +470,7 @@ input {
 
 @media (max-width: 720px) {
   .app-shell {
-    width: min(100vw - 16px, 1280px);
-    margin-top: 12px;
+    padding: 12px;
   }
 
   .hero,

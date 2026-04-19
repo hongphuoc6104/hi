@@ -47,7 +47,7 @@
     elements.metaSetCount.textContent = String(appData.meta.setCount);
 
     elements.setSelect.innerHTML = appData.examSets
-      .map((examSet) => `<option value="${examSet.id}">${examSet.id} - ${examSet.size} cau</option>`)
+      .map((examSet) => `<option value="${examSet.id}">${examSet.id} - ${examSet.size} câu</option>`)
       .join('');
 
     elements.setSelect.value = state.selectedSetId;
@@ -93,7 +93,7 @@
       if (!state.session) {
         return;
       }
-      if (!window.confirm('Xoa phien dang luu hien tai?')) {
+      if (!window.confirm('Xóa phiên đang lưu hiện tại?')) {
         return;
       }
       state.session = null;
@@ -110,7 +110,7 @@
       if (!state.session) {
         return;
       }
-      if (!window.confirm('Lam lai se xoa toan bo lua chon hien tai. Tiep tuc?')) {
+      if (!window.confirm('Làm lại sẽ xóa toàn bộ lựa chọn hiện tại. Tiếp tục?')) {
         return;
       }
       startSession(state.session.setId);
@@ -129,16 +129,16 @@
 
   function renderSetup() {
     const selectedSet = setsById.get(state.selectedSetId);
-    elements.setInfoPill.textContent = `${selectedSet.size} cau`;
+    elements.setInfoPill.textContent = `${selectedSet.size} câu`;
 
     if (!state.session) {
-      elements.savedSessionNote.textContent = 'Chua co phien dang luu.';
+      elements.savedSessionNote.textContent = 'Chưa có phiên đang lưu.';
       elements.resumeBtn.classList.add('hidden');
       elements.clearSavedBtn.classList.add('hidden');
     } else {
       const unanswered = getUnansweredCount(state.session);
-      const status = state.session.submitted ? 'da nop bai' : 'dang lam';
-      elements.savedSessionNote.textContent = `Dang co phien ${state.session.setId} (${status}), con ${unanswered} cau chua chon.`;
+      const status = state.session.submitted ? 'đã nộp bài' : 'đang làm';
+      elements.savedSessionNote.textContent = `Đang có phiên ${state.session.setId} (${status}), còn ${unanswered} câu chưa chọn.`;
       elements.resumeBtn.classList.remove('hidden');
       elements.clearSavedBtn.classList.remove('hidden');
     }
@@ -167,18 +167,18 @@
     const currentQuestionId = session.questionOrder[session.currentIndex];
     const currentQuestion = getQuestionView(currentQuestionId, session);
 
-    elements.sidebarSetTitle.textContent = `${session.setId} - ${examSet.size} cau`;
+    elements.sidebarSetTitle.textContent = `${session.setId} - ${examSet.size} câu`;
     elements.answeredCount.textContent = String(answered);
     elements.unansweredCount.textContent = String(unanswered);
     elements.flaggedCount.textContent = String(flagged);
     elements.shuffleStateLabel.textContent = buildShuffleLabel(session.preferences);
-    elements.submitBtn.textContent = session.submitted ? 'Da nop bai' : 'Nop bai';
+    elements.submitBtn.textContent = session.submitted ? 'Đã nộp bài' : 'Nộp bài';
     elements.submitBtn.disabled = session.submitted;
     elements.flagBtn.textContent = session.flaggedIds.includes(currentQuestionId)
-      ? 'Bo danh dau'
-      : 'Danh dau cau nay';
-    elements.questionMeta.textContent = `${currentQuestion.section} - Cau goc ${currentQuestion.localNumber}`;
-    elements.questionTitle.textContent = `Cau ${session.currentIndex + 1} / ${total}`;
+      ? 'Bỏ đánh dấu'
+      : 'Đánh dấu câu này';
+    elements.questionMeta.textContent = `${currentQuestion.section} - Câu gốc ${currentQuestion.localNumber}`;
+    elements.questionTitle.textContent = `Câu ${session.currentIndex + 1} / ${total}`;
     elements.prevBtn.disabled = session.currentIndex === 0;
     elements.nextBtn.disabled = session.currentIndex === total - 1;
 
@@ -199,7 +199,7 @@
     const total = session.questionOrder.length;
     const score = ((correct / total) * 10).toFixed(2);
     elements.resultBanner.classList.remove('hidden');
-    elements.resultBanner.textContent = `Ban dung ${correct}/${total} cau. Diem quy doi: ${score}/10. Chon tung cau trong luoi ben trai de xem dap an dung / sai.`;
+    elements.resultBanner.textContent = `Bạn đúng ${correct}/${total} câu. Điểm quy đổi: ${score}/10. Chọn từng câu trong lưới bên trái để xem đáp án đúng / sai.`;
   }
 
   function renderQuestionNav() {
@@ -245,13 +245,13 @@
           classNames.push('selected');
         }
 
-        if (session.submitted) {
+        if (session.submitted || selected) {
           if (option.id === questionView.correctOptionId) {
             classNames.push('correct');
-            badges.push('<span class="option-badge correct">Dap an dung</span>');
+            badges.push('<span class="option-badge correct">Đáp án đúng</span>');
           } else if (selected === option.id) {
             classNames.push('wrong');
-            badges.push('<span class="option-badge wrong">Lua chon cua ban</span>');
+            badges.push('<span class="option-badge wrong">Lựa chọn của bạn</span>');
           }
         }
 
@@ -269,11 +269,11 @@
 
     elements.questionCard.innerHTML = `
       <h3>${escapeHtml(questionView.prompt)}</h3>
-      <p class="question-submeta">${session.submitted ? 'Che do xem lai dap an.' : 'Chon mot dap an, co the doi cau va quay lai sau.'}</p>
-      <div class="options">${optionsHtml}</div>
+      <p class="question-submeta">${session.submitted ? 'Chế độ xem lại đáp án.' : (selected ? 'Tự động chuyển sang câu tiếp theo...' : 'Chọn một đáp án (không thể thay đổi sau khi chọn).')}</p>
+      <div class="options${(session.submitted || selected) ? ' has-answered' : ''}">${optionsHtml}</div>
     `;
 
-    if (session.submitted) {
+    if (session.submitted || selected) {
       return;
     }
 
@@ -283,6 +283,14 @@
         session.answers[questionId] = button.dataset.optionId;
         saveState();
         renderQuiz();
+
+        // Tu dong chuyen cau sau 2s
+        const currentIndex = session.currentIndex;
+        setTimeout(() => {
+          if (state.session && !state.session.submitted && state.session.currentIndex === currentIndex && state.session.currentIndex < state.session.questionOrder.length - 1) {
+            moveQuestion(1);
+          }
+        }, 2000);
       });
     });
   }
@@ -358,8 +366,8 @@
 
     const unanswered = getUnansweredCount(state.session);
     const message = unanswered > 0
-      ? `Con ${unanswered} cau chua chon. Ban van muon nop bai?`
-      : 'Ban chac chan muon nop bai?';
+      ? `Còn ${unanswered} câu chưa chọn. Bạn vẫn muốn nộp bài?`
+      : 'Bạn chắc chắn muốn nộp bài?';
 
     if (!window.confirm(message)) {
       return;
@@ -396,10 +404,10 @@
 
   function buildShuffleLabel(preferences) {
     const parts = [];
-    if (preferences.shuffleQuestions) parts.push('cau hoi');
-    if (preferences.shuffleOptions) parts.push('dap an');
-    if (parts.length === 0) return 'Khong xao tron';
-    return `Xao tron: ${parts.join(' + ')}`;
+    if (preferences.shuffleQuestions) parts.push('câu hỏi');
+    if (preferences.shuffleOptions) parts.push('đáp án');
+    if (parts.length === 0) return 'Không xáo trộn';
+    return `Xáo trộn: ${parts.join(' + ')}`;
   }
 
   function syncTimer() {

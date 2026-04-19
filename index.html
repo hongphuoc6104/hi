@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Trac nghiem Lich su Dang</title>
+    <title>Trắc nghiệm Lịch sử Đảng</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
@@ -11,23 +11,23 @@
       <header class="hero panel">
         <div>
           <p class="eyebrow">GitHub Pages Ready</p>
-          <h1>Trac nghiem Lich su Dang</h1>
+          <h1>Trắc nghiệm Lịch sử Đảng</h1>
           <p class="hero-copy">
-            Ngan hang du lieu duoc trich tu file PDF goc, giu dap an dung ngay ca khi xao tron thu tu cau hoi va dap an.
+            Ngân hàng dữ liệu được trích từ file PDF gốc, giữ đáp án đúng ngay cả khi xáo trộn thứ tự câu hỏi và đáp án.
           </p>
         </div>
         <div class="hero-stats">
           <div>
             <strong id="metaQuestionCount">0</strong>
-            <span>cau hoi</span>
+            <span>câu hỏi</span>
           </div>
           <div>
             <strong id="metaSetCount">0</strong>
-            <span>ma de</span>
+            <span>mã đề</span>
           </div>
           <div>
             <strong>2</strong>
-            <span>lan / cau</span>
+            <span>lần / câu</span>
           </div>
         </div>
       </header>
@@ -36,47 +36,47 @@
         <section class="panel setup-panel" id="setupView">
           <div class="panel-heading">
             <div>
-              <p class="eyebrow">Khoi tao bai lam</p>
-              <h2>Chon ma de</h2>
+              <p class="eyebrow">Khởi tạo bài làm</p>
+              <h2>Chọn mã đề</h2>
             </div>
-            <span class="pill" id="setInfoPill">0 cau</span>
+            <span class="pill" id="setInfoPill">0 câu</span>
           </div>
 
           <label class="field">
-            <span>Ma de</span>
+            <span>Mã đề</span>
             <select id="setSelect"></select>
           </label>
 
           <div class="check-grid">
             <label class="check-item">
               <input type="checkbox" id="shuffleQuestions" checked />
-              <span>Xao tron thu tu cau hoi</span>
+              <span>Xáo trộn thứ tự câu hỏi</span>
             </label>
             <label class="check-item">
               <input type="checkbox" id="shuffleOptions" checked />
-              <span>Xao tron thu tu dap an</span>
+              <span>Xáo trộn thứ tự đáp án</span>
             </label>
           </div>
 
           <div class="info-grid">
             <div class="info-card">
-              <span>Phan bo bo de</span>
-              <strong>24 de x 30 cau, 1 de x 20 cau</strong>
+              <span>Phân bổ bộ đề</span>
+              <strong>24 đề x 30 câu, 1 đề x 20 câu</strong>
             </div>
             <div class="info-card">
-              <span>Du lieu</span>
-              <strong>370 cau, moi cau xuat hien dung 2 lan</strong>
+              <span>Dữ liệu</span>
+              <strong>370 câu, mỗi câu xuất hiện đúng 2 lần</strong>
             </div>
           </div>
 
           <p class="helper" id="savedSessionNote">
-            Chua co phien dang luu.
+            Chưa có phiên đang lưu.
           </p>
 
           <div class="action-row">
-            <button class="btn primary" id="startBtn">Bat dau lam bai</button>
-            <button class="btn secondary hidden" id="resumeBtn">Tiep tuc phien da luu</button>
-            <button class="btn ghost hidden" id="clearSavedBtn">Xoa phien da luu</button>
+            <button class="btn primary" id="startBtn">Bắt đầu làm bài</button>
+            <button class="btn secondary hidden" id="resumeBtn">Tiếp tục phiên đã lưu</button>
+            <button class="btn ghost hidden" id="clearSavedBtn">Xóa phiên đã lưu</button>
           </div>
         </section>
 
@@ -84,7 +84,7 @@
           <aside class="panel sidebar">
             <div class="panel-heading compact">
               <div>
-                <p class="eyebrow">Trang thai bai lam</p>
+                <p class="eyebrow">Trạng thái bài làm</p>
                 <h2 id="sidebarSetTitle">DE-01</h2>
               </div>
               <span class="pill" id="timerText">00:00</span>
@@ -92,39 +92,39 @@
 
             <div class="summary-grid">
               <div class="summary-card">
-                <span>Da chon</span>
+                <span>Đã chọn</span>
                 <strong id="answeredCount">0</strong>
               </div>
               <div class="summary-card">
-                <span>Chua chon</span>
+                <span>Chưa chọn</span>
                 <strong id="unansweredCount">0</strong>
               </div>
               <div class="summary-card">
-                <span>Danh dau</span>
+                <span>Đánh dấu</span>
                 <strong id="flaggedCount">0</strong>
               </div>
             </div>
 
             <div class="nav-label-row">
-              <span>Dieu huong nhanh</span>
-              <span id="shuffleStateLabel">Xao tron dang bat</span>
+              <span>Điều hướng nhanh</span>
+              <span id="shuffleStateLabel">Xáo trộn đang bật</span>
             </div>
             <div class="question-nav" id="questionNav"></div>
 
             <div class="action-stack">
-              <button class="btn primary" id="submitBtn">Nop bai</button>
-              <button class="btn secondary" id="backBtn">Quay lai chon de</button>
-              <button class="btn ghost" id="resetBtn">Lam lai tu dau</button>
+              <button class="btn primary" id="submitBtn">Nộp bài</button>
+              <button class="btn secondary" id="backBtn">Quay lại chọn đề</button>
+              <button class="btn ghost" id="resetBtn">Làm lại từ đầu</button>
             </div>
           </aside>
 
           <section class="panel question-panel">
             <div class="question-toolbar">
               <div>
-                <p class="eyebrow" id="questionMeta">Bai 1</p>
-                <h2 id="questionTitle">Cau 1</h2>
+                <p class="eyebrow" id="questionMeta">Bài 1</p>
+                <h2 id="questionTitle">Câu 1</h2>
               </div>
-              <button class="btn ghost small" id="flagBtn">Danh dau cau nay</button>
+              <button class="btn ghost small" id="flagBtn">Đánh dấu câu này</button>
             </div>
 
             <div class="result-banner hidden" id="resultBanner"></div>
@@ -132,8 +132,8 @@
             <article class="question-card" id="questionCard"></article>
 
             <div class="pager-row">
-              <button class="btn secondary" id="prevBtn">Cau truoc</button>
-              <button class="btn primary" id="nextBtn">Cau tiep</button>
+              <button class="btn secondary" id="prevBtn">Câu trước</button>
+              <button class="btn primary" id="nextBtn">Câu tiếp</button>
             </div>
           </section>
         </section>
